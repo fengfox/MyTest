@@ -531,12 +531,8 @@ void MainDlg::OnBnClickedSavebtn()
 		CloseHandle(handle);
 		//Ð´Èëxml
 		
-		TiXmlDocument doc;     
-		doc.LoadFile(m_path);
-		TiXmlElement* firstLevel=doc.RootElement();
-		SendMyMessage(firstLevel->Value());
-		//http://www.cnblogs.com/tiandsp/archive/2013/01/08/2852020.html
-		
+	
+	
 	}
 }
 	
