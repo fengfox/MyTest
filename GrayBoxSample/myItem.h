@@ -5,8 +5,8 @@ public:
 	myItem(void);
 	~myItem(void);
 	CString symbol;
-	double ATR;
-	double LOO_ATR;
-	double Stop_ATR;
+	CString ATR;
+	CString LOO_ATR;
+	CString Stop_ATR;
 };
 

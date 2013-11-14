@@ -56,4 +56,5 @@ public:
 	tm *getTm();
 	afx_msg void OnBnClickedSavebtn();
 	afx_msg void OnBnClickedLoadbtn();
+	CListBox m_SymbolList;
 };

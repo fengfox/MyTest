@@ -8,6 +8,7 @@
 #include <vector>
 #include <time.h>
 #include "tinyxml.h"
+#include "DataControl.h"
 #pragma comment(lib,"tinyxml.lib")
 using namespace std;
 //需要初始化的数据
@@ -54,6 +55,7 @@ void MainDlg::DoDataExchange(CDataExchange* pDX)
 
 	DDX_Control(pDX, IDC_STOPATRCOMBO, m_StopAtrCombo);
 	DDX_Control(pDX, IDC_LOOATRCOMBO, m_LooAtrCombo);
+	DDX_Control(pDX, IDC_SYMBOLLIST, m_SymbolList);
 }
 
 
@@ -531,7 +533,14 @@ void MainDlg::OnBnClickedSavebtn()
 		CloseHandle(handle);
 		//写入xml
 		
-	
+		DataControl dc;
+		myList ml;
+		ml.item[0].symbol="ABC";
+		ml.item[0].LOO_ATR="11";
+		ml.item[0].Stop_ATR="22";
+		ml.item[0].ATR="2";
+
+		dc.save(m_path,ml);
 	
 	}
 }
@@ -556,5 +565,36 @@ void MainDlg::OnBnClickedLoadbtn()
 		CString m_path = hFileDlg.GetPathName();
 		UpdateData(FALSE);
 		SendMyMessage(m_path);
+		DataControl dc;
+		myList ml;
+		ml=dc.load(m_path);
+		int count=0;
+		while(ml.item[count].symbol!="")
+		{
+			/*
+			SendMyMessage(ml.item[count].symbol);
+			SendMyMessage(ml.item[count].ATR);
+			SendMyMessage(ml.item[count].LOO_ATR);
+			SendMyMessage(ml.item[count].Stop_ATR);
+			*/
+			CString Stmp;
+			Stmp.Append("symbol:");
+			Stmp.Append(ml.item[count].symbol);
+			Stmp.Append("|ATR:");
+			Stmp.Append(ml.item[count].ATR);
+			Stmp.Append("|LOO_ATR:");
+			Stmp.Append(ml.item[count].LOO_ATR);
+			Stmp.Append("|Stop_ATR:");
+			Stmp.Append(ml.item[count].Stop_ATR);
+			m_SymbolList.InsertString(-1,Stmp);
+			count++;
+			if(count>255)
+			{
+				break;
+			}
+
+		}
+		ml.deleteList();
+	
 	}
 }
